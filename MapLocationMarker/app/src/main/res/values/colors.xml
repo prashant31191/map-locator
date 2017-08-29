@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <color name="clrRed">#F30000</color>
+
+
+    <color name="clrWhite">#ffffff</color>
+    <color name="clrBlack">#000000</color>
+
+    <color name="clrBlack1">#323232</color>
+    <color name="clrWhite1">#fcfcfc</color>
+
+    <color name="tr0clrBlack0">#00000000</color>
+
+    <color name="tr4clrBlack1">#44323232</color>
+    <color name="tr4clrWhite1">#44fcfcfc</color>
+
+
+</resources>

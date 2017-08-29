@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="play-services-drive-8.4.0">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/play-services-drive-8.4.0.aar/59eec1a664d37aaf89ff87c42e500000/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/play-services-drive-8.4.0.aar/59eec1a664d37aaf89ff87c42e500000/res" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

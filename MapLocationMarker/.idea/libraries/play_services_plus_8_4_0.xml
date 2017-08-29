@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="play-services-plus-8.4.0">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/play-services-plus-8.4.0.aar/f5507253cfcf716bbde25c591b1a7539/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/play-services-plus-8.4.0.aar/f5507253cfcf716bbde25c591b1a7539/res" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">Map Locator</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="title_activity_nearby">Near locations</string>
+    <string name="title_activity_foggy">Foggy Wall</string>
+
+    <!--Fetch Address-->
+    <string name="no_geocoder_available">No geocoder available</string>
+
+    <string name="fetch_address">Fetch address</string>
+
+    <string name="address_found">Address found</string>
+
+    <string name="no_address_found">Sorry, no address found</string>
+    <string name="no_location_data_provided">No location data provided</string>
+    <string name="service_not_available">Sorry, the service is not available</string>
+    <string name="invalid_lat_long_used">Invalid latitude or longitude used</string>
+
+    <string name="gcm_defaultSenderId">559709692547</string>
+    <string name="google_app_id">559709692547</string>
+    <!-- project id = 559709692547  & gcm key  = AIzaSyCw4Bfxo3BBiFE6cnzn3PkjFHhYo9dwAcY-->
+</resources>

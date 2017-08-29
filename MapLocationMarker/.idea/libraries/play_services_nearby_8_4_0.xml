@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="play-services-nearby-8.4.0">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/play-services-nearby-8.4.0.aar/65287f9a42439f2c5a34bbe40b1690c5/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/play-services-nearby-8.4.0.aar/65287f9a42439f2c5a34bbe40b1690c5/res" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
