@@ -22,6 +22,25 @@ public class NearbysearchModel {
     @SerializedName("vicinity")
     public String vicinity;
 
+    @SerializedName("geometry")
+    public Geometry geometry;
+
+    public class Geometry
+    {
+        @SerializedName("location")
+        public Location location;
+
+        public class Location
+        {
+            @SerializedName("lat")
+            public String lat = "23.024117";
+
+            @SerializedName("lng")
+            public String lng = "72.5674708";
+        }
+
+    }
+
 
     @SerializedName("photos")
     public ArrayList<PhotosModel> arrListPhotosModel;

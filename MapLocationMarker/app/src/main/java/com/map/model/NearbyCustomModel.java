@@ -1,5 +1,9 @@
 package com.map.model;
 
+import android.location.Location;
+
+import com.google.android.gms.maps.model.LatLng;
+
 /**
  * Created by Admin on 10/21/2016.
  */
@@ -33,6 +37,10 @@ public class NearbyCustomModel
      */
     public String photo_reference;
 
+
+    public LatLng latLng;
+
+
     /**
      * Instantiates a new Nearby custom model.
      *
@@ -43,7 +51,7 @@ public class NearbyCustomModel
      * @param height          the height
      * @param photo_reference the photo reference
      */
-    public NearbyCustomModel(String name, String vicinity, String icon, String width, String height, String photo_reference)
+    public NearbyCustomModel(String name, String vicinity, String icon, String width, String height, String photo_reference, LatLng latLng)
     {
         this.name = name;
         this.vicinity = vicinity;
@@ -51,6 +59,9 @@ public class NearbyCustomModel
         this.width = width;
         this.height = height;
         this.photo_reference = photo_reference;
+        this.latLng = latLng;
+
+
     }
 
 }

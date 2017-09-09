@@ -1,6 +1,8 @@
 package com.maplocator;
 import android.content.Context;
 import android.content.Intent;
+import android.location.Location;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
@@ -19,12 +21,16 @@ import android.widget.SearchView;
 import android.widget.TextView;
 
 import com.fmsirvent.ParallaxEverywhere.PEWImageView;
+import com.google.android.gms.maps.model.LatLng;
 import com.map.api.ApiService;
 import com.map.model.NearbyCustomModel;
+import com.map.model.NearbysearchModel;
 import com.map.response.NearbysearchListResponse;
 import com.squareup.picasso.Picasso;
+import com.utils.App;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -133,7 +139,7 @@ public class NearbyLocationList extends AppCompatActivity {
 
     }
 
-    private void asyncGetNearbyPlaces(String location,String types,String radius,String sensor,String key) {
+    private void asyncGetNearbyPlaces(final String location, String types, String radius, String sensor, String key) {
 
        /* @Query("location") String location,
         @Query("types") String types,
@@ -194,7 +200,21 @@ public class NearbyLocationList extends AppCompatActivity {
                                 width="";height="";photo_reference="";
                             }
 
-                            NearbyCustomModel nearbyCustomModel = new NearbyCustomModel(name,vicinity,icon,width,height,photo_reference);
+                            double lat=0,lng=0 ;
+                            LatLng latLng = new LatLng(lat,lng);
+                            if(nearbysearchListResponse.arrListNearbysearchModel.get(i).geometry !=null && nearbysearchListResponse.arrListNearbysearchModel.get(i).geometry.location !=null)
+                            {
+                                NearbysearchModel.Geometry.Location location1 = nearbysearchListResponse.arrListNearbysearchModel.get(i).geometry.location;
+
+                                if(location1.lat !=null && location1.lat.length() > 1) {
+                                    lat = Double.parseDouble(location1.lat);
+                                    lng = Double.parseDouble(location1.lng);
+                                }
+                                latLng = new LatLng(lat,lng);
+                            }
+
+
+                            NearbyCustomModel nearbyCustomModel = new NearbyCustomModel(name,vicinity,icon,width,height,photo_reference,latLng);
                             arrListNearbyCustomModel.add(nearbyCustomModel);
 
                         }
@@ -307,6 +327,40 @@ public class NearbyLocationList extends AppCompatActivity {
 
             viewHolder.tvTtile.setText(position+". "+mArrayListHomeWishListModel.get(position).name);
             viewHolder.tvDesc.setText(mArrayListHomeWishListModel.get(position).vicinity);
+
+            viewHolder.cv.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    App.showLog("===click card===","====position=="+position);
+
+                    if( mArrayListHomeWishListModel.get(position).latLng !=null)
+                    {
+                        LatLng latLng = mArrayListHomeWishListModel.get(position).latLng;
+                        App.showLog("===click card===","====latitude=="+latLng.latitude);
+                        App.showLog("===click card===","====longitude=="+latLng.longitude);
+
+
+                     //   String uri = String.format(Locale.ENGLISH, "geo:%f,%f", mArrayListHomeWishListModel.get(position).latLng.latitude, mArrayListHomeWishListModel.get(position).latLng.longitude);
+                        String uri = String.format(Locale.ENGLISH, "geo:%f,%f?q=%f,%f(%s)",
+                                latLng.latitude,
+                                latLng.longitude,
+                                latLng.latitude,
+                                latLng.longitude,
+                                ""+mArrayListHomeWishListModel.get(position).name+
+                                "\n \n"+mArrayListHomeWishListModel.get(position).vicinity
+
+                                );
+
+                        App.showLog("====uri===="+uri);
+/*
+                        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("geo:<lat>,<long>?q=<lat>,<long>(Label+Name)"));
+                        startActivity(intent);
+                        */
+                        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
+                        mContext.startActivity(intent);
+                    }
+                }
+            });
         }
 
         @Override
