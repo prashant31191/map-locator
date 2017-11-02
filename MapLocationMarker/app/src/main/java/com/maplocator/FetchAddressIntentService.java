@@ -11,12 +11,14 @@ import android.text.TextUtils;
 import android.util.Log;
 
 
+import com.utils.App;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import static com.google.android.gms.internal.zzagz.runOnUiThread;
 
 
 /**
@@ -25,7 +27,7 @@ import java.util.Locale;
  * sends the result to the ResultReceiver.
  */
 public class FetchAddressIntentService extends IntentService {
-    private static final String TAG = "FetchAddressIS";
+    private static final String TAG = "==FetchAddressIS==";
 
     /**
      * The receiver where results are forwarded from this service.
@@ -134,16 +136,35 @@ public class FetchAddressIntentService extends IntentService {
     /**
      * Sends a resultCode and message to the receiver.
      */
-    private void deliverResultToReceiver(int resultCode, String message, Address address) {
+    private void deliverResultToReceiver(int resultCode, String message, final Address address) {
         try {
             Bundle bundle = new Bundle();
             bundle.putString(AppUtils.LocationConstants.RESULT_DATA_KEY, message);
 
-            bundle.putString(AppUtils.LocationConstants.LOCATION_DATA_AREA, address.getSubLocality());
+            if(address !=null) {
+                if (address.getLocality() != null)
+                    bundle.putString(AppUtils.LocationConstants.LOCATION_DATA_CITY, address.getLocality());
+                if (address.getAddressLine(0) != null)
+                    bundle.putString(AppUtils.LocationConstants.LOCATION_DATA_STREET, address.getAddressLine(0));
+                if (address.getSubLocality() != null) {
+                    bundle.putString(AppUtils.LocationConstants.LOCATION_DATA_AREA, address.getSubLocality());
+                    App.showLog("======address.getSubLocality()====="+address.getSubLocality());
 
-            bundle.putString(AppUtils.LocationConstants.LOCATION_DATA_CITY, address.getLocality());
-            bundle.putString(AppUtils.LocationConstants.LOCATION_DATA_STREET, address.getAddressLine(0));
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
 
+                                App.showLog("======address.getSubLocality()====="+address.getSubLocality());
+//stuff that updates ui
+                                if(HomeActivity.mLocationAddress !=null ) {
+                                    HomeActivity.mLocationAddress.setText(address.getSubLocality());
+                                }
+                            }
+                        });
+
+
+                }
+            }
             mReceiver.send(resultCode, bundle);
         } catch (Exception e) {
             e.printStackTrace();

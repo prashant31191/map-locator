@@ -1,6 +1,7 @@
 package com.maplocator;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -10,6 +11,7 @@ import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.os.Handler;
+import android.os.Parcelable;
 import android.os.ResultReceiver;
 import android.provider.Settings;
 import android.support.design.widget.Snackbar;
@@ -47,6 +49,7 @@ import com.nightonke.boommenu.Types.BoomType;
 import com.nightonke.boommenu.Types.ButtonType;
 import com.nightonke.boommenu.Types.PlaceType;
 import com.nightonke.boommenu.Util;
+import com.utils.App;
 
 import java.util.Random;
 
@@ -72,7 +75,7 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
     protected String mAreaOutput;
     protected String mCityOutput;
     protected String mStateOutput;
-    EditText mLocationAddress;
+    public static EditText mLocationAddress;
     TextView mLocationText;
     private static final int REQUEST_CODE_AUTOCOMPLETE = 1;
     Toolbar mToolbar;
@@ -95,6 +98,8 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
+        mLocationAddress = (EditText) findViewById(R.id.Address);
+
         mContext = this;
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
@@ -104,7 +109,7 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
         boomMenuButton = (BoomMenuButton)findViewById(R.id.boom);
 
         mLocationMarkerText = (TextView) findViewById(R.id.locationMarkertext);
-        mLocationAddress = (EditText) findViewById(R.id.Address);
+
         mLocationText = (TextView) findViewById(R.id.Locality);
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
@@ -231,8 +236,8 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
             // for ActivityCompat#requestPermissions for more details.
             return;
         }
-        Location mLastLocation = LocationServices.FusedLocationApi.getLastLocation(
-                mGoogleApiClient);
+        @SuppressLint("MissingPermission")
+        Location mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
         if (mLastLocation != null) {
             changeMap(mLastLocation);
             Log.d(TAG, "ON connected");
@@ -249,8 +254,8 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
             mLocationRequest.setInterval(10000);
             mLocationRequest.setFastestInterval(5000);
             mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-            LocationServices.FusedLocationApi.requestLocationUpdates(
-                    mGoogleApiClient, mLocationRequest, this);
+
+            LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -269,8 +274,7 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
         try {
             if (location != null)
                 changeMap(location);
-            LocationServices.FusedLocationApi.removeLocationUpdates(
-                    mGoogleApiClient, this);
+            LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -380,7 +384,7 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
     /**
      * Receiver for data sent from FetchAddressIntentService.
      */
-    class AddressResultReceiver extends ResultReceiver {
+   public class AddressResultReceiver extends ResultReceiver  {
         public AddressResultReceiver(Handler handler) {
             super(handler);
         }
@@ -390,6 +394,8 @@ public class HomeActivity extends AppCompatActivity implements OnMapReadyCallbac
          */
         @Override
         protected void onReceiveResult(int resultCode, Bundle resultData) {
+
+            App.showLog("======AddressResultReceiver==onReceiveResult=======");
 
             // Display the address string or an error message sent from the intent service.
             mAddressOutput = resultData.getString(AppUtils.LocationConstants.RESULT_DATA_KEY);

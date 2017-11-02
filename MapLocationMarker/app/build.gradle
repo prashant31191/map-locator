@@ -40,7 +40,7 @@ dependencies {
     compile 'com.android.support:design:25.3.1'
 
     //google playservice for map and other uses
-    compile 'com.google.android.gms:play-services:8.4.0'
+    compile 'com.google.android.gms:play-services:11.0.2'
     // custome share and other menus
     compile 'com.nightonke:boommenu:1.0.9'
 

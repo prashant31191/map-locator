@@ -40,7 +40,7 @@ public class PathGoogleMapActivity extends FragmentActivity {
         // setContentView(R.layout.activity_path_google_map);
         SupportMapFragment fm = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
-        googleMap = fm.getMap();
+        /*googleMap = fm.getMap();*/
 
         MarkerOptions options = new MarkerOptions();
         options.position(LOWER_MANHATTAN);
